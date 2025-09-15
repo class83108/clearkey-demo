@@ -2,6 +2,7 @@ import os
 import secrets
 import subprocess
 import requests
+import time
 import logging
 
 from celery import shared_task
@@ -63,21 +64,29 @@ def encrypt_video(self, video_id: int):
         "key_hex": video.key_hex,
     }
 
-    try:
-        resp = requests.post(packager_url, json=payload, timeout=600)
-        if resp.status_code != 200:
-            logger.error(f"Packager API failed: {resp.status_code} {resp.text}")
-            Video.objects.filter(pk=video.pk).update(status="failed")
-            return
+    # Retry with backoff to wait for packager readiness/DNS
+    last_err = None
+    for attempt in range(8):
+        try:
+            resp = requests.post(packager_url, json=payload, timeout=120)
+            if resp.status_code == 200:
+                data = resp.json()
+                encrypted_rel_path = data.get("mpd", f"encrypted/{video.id}/stream.mpd")
+                logger.info(f"Encryption successful via API, setting encrypted_path: {encrypted_rel_path}")
+                Video.objects.filter(pk=video.pk).update(
+                    status="READY",
+                    encrypted_path=encrypted_rel_path,
+                )
+                return
+            else:
+                last_err = f"HTTP {resp.status_code}: {resp.text}"
+        except Exception as e:
+            last_err = str(e)
 
-        data = resp.json()
-        encrypted_rel_path = data.get("mpd", f"encrypted/{video.id}/stream.mpd")
-        logger.info(f"Encryption successful via API, setting encrypted_path: {encrypted_rel_path}")
-        Video.objects.filter(pk=video.pk).update(
-            status="READY",
-            encrypted_path=encrypted_rel_path,
-        )
-    except Exception as e:
-        logger.exception(f"Unexpected error during encryption for video {video_id}: {e}")
-        Video.objects.filter(pk=video.pk).update(status="failed")
-        return
+        sleep_sec = min(5 * (attempt + 1), 30)
+        logger.info(f"Packager not ready, retrying in {sleep_sec}s (attempt {attempt+1}/8): {last_err}")
+        time.sleep(sleep_sec)
+
+    logger.error(f"Packager API failed after retries: {last_err}")
+    Video.objects.filter(pk=video.pk).update(status="failed")
+    return

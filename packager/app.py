@@ -24,6 +24,12 @@ def run_pack(in_path: str, out_dir: str, kid_hex: str, key_hex: str) -> tuple[in
 
 
 class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):  # noqa: N802
+        if self.path == "/health":
+            self._json(200, {"status": "ok"})
+            return
+        self._json(404, {"error": "not found"})
+
     def _json(self, code: int, payload: dict):
         body = json.dumps(payload).encode("utf-8")
         self.send_response(code)
@@ -53,8 +59,8 @@ class Handler(BaseHTTPRequestHandler):
             self._json(400, {"error": "missing fields"})
             return
 
-        in_path = f"/work/{input_rel}"
-        out_dir = f"/work/{output_rel}"
+        in_path = f"/work/media/{input_rel}"
+        out_dir = f"/work/media/{output_rel}"
 
         os.makedirs(out_dir, exist_ok=True)
 
@@ -73,4 +79,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

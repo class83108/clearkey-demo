@@ -13,8 +13,10 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/4
       - PACKAGER_SERVICE_URL=http://packager:8080
     depends_on:
-      - redis
-      - packager
+      redis:
+        condition: service_started
+      packager:
+        condition: service_healthy
     command: python manage.py runserver 0.0.0.0:8000
 
   celery:
@@ -26,19 +28,29 @@ services:
       - CELERY_BROKER_URL=redis://redis:6379/4
       - PACKAGER_SERVICE_URL=http://packager:8080
     depends_on:
-      - redis
-      - packager
+      redis:
+        condition: service_started
+      packager:
+        condition: service_healthy
     command: celery -A server worker --loglevel=info
 
   packager:
-    build: ./packager
+    build:
+      context: ./packager
     image: packager:latest
+    platform: linux/amd64
     ports:
       - "8080:8080"
     volumes:
-      - ./backend/media:/work
+      - ./backend/media:/work/media
     environment:
       - PORT=8080
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request,sys; urllib.request.urlopen('http://localhost:8080/health', timeout=2); sys.exit(0)"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
 
   redis:
     image: redis:7-alpine
