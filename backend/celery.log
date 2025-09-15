@@ -193,3 +193,19 @@ I0915 04:35:21.282341      11 mp4_muxer.cc:195] MP4 file '/work/out/video_init.m
 
 INFO 2025-09-15 04:35:21,408 tasks 57624 8567947840 Docker command return code: 0
 INFO 2025-09-15 04:35:21,408 tasks 57624 8567947840 Encryption successful, setting encrypted_path: encrypted/19/stream.mpd
+INFO 2025-09-15 06:43:07,362 tasks 14 281472995880992 Starting encrypt_video task for video_id: 20
+INFO 2025-09-15 06:43:07,425 tasks 14 281472995880992 Found video: 1231231231 (ID: 20)
+INFO 2025-09-15 06:43:07,432 tasks 14 281472995880992 Running docker command: docker run --rm --platform linux/amd64 -v media_data:/work -e KID_HEX=b70e0875217e655435ca1f4193fca0ba -e KEY_HEX=992c299642c205be72b8b5140bf748d3 -e IN=/work/uploads/02175610591147200000000000000000000ffffc0a84077654f27.mp4 -e OUT=/work/encrypted/20 packager sh /work/pack.sh
+INFO 2025-09-15 06:43:08,730 tasks 14 281472995880992 Docker command stdout: Packaging completed successfully.
+OK -> /work/encrypted/20/stream.mpd
+
+INFO 2025-09-15 06:43:08,731 tasks 14 281472995880992 Docker command stderr: I0915 06:43:08.168425       9 demuxer.cc:94] Demuxer::Run() on file '/work/uploads/02175610591147200000000000000000000ffffc0a84077654f27.mp4'.
+I0915 06:43:08.175341       9 demuxer.cc:160] Initialize Demuxer for file '/work/uploads/02175610591147200000000000000000000ffffc0a84077654f27.mp4'.
+E0915 06:43:08.307467       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0915 06:43:08.308905       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0915 06:43:08.379524      12 demuxer.cc:94] Demuxer::Run() on file '/work/uploads/02175610591147200000000000000000000ffffc0a84077654f27.mp4'.
+I0915 06:43:08.384165      12 demuxer.cc:160] Initialize Demuxer for file '/work/uploads/02175610591147200000000000000000000ffffc0a84077654f27.mp4'.
+I0915 06:43:08.619649      12 mp4_muxer.cc:195] MP4 file '/work/encrypted/20/video_init.mp4' finalized.
+
+INFO 2025-09-15 06:43:08,731 tasks 14 281472995880992 Docker command return code: 0
+INFO 2025-09-15 06:43:08,732 tasks 14 281472995880992 Encryption successful, setting encrypted_path: encrypted/20/stream.mpd

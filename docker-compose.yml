@@ -6,9 +6,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - media_data:/app/media
+      - ./backend/media:/app/media
       - ./backend:/app
-      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - DEBUG=1
       - CELERY_BROKER_URL=redis://redis:6379/4
@@ -21,9 +20,8 @@ services:
   celery:
     build: ./backend
     volumes:
-      - media_data:/app/media
+      - ./backend/media:/app/media
       - ./backend:/app
-      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/4
       - PACKAGER_SERVICE_URL=http://packager:8080
@@ -38,7 +36,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - media_data:/work
+      - ./backend/media:/work
     environment:
       - PORT=8080
 
@@ -47,6 +45,4 @@ services:
     ports:
       - "6381:6379"
 
-volumes:
-  media_data:
-    name: media_data
+# No named volumes required; we use a bind mount so all services share ./backend/media

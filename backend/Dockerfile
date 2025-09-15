@@ -5,11 +5,6 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release \
-    docker.io \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies

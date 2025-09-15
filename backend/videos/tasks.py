@@ -1,6 +1,7 @@
 import os
 import secrets
 import subprocess
+import requests
 import logging
 
 from celery import shared_task
@@ -52,52 +53,26 @@ def encrypt_video(self, video_id: int):
     if updated_keys:
         video.save(update_fields=["kid_hex", "key_hex", "updated_at"])
 
-    # Build docker run command
-    # We mount the named volume 'media_data' directly so paths are valid for the host docker daemon.
-    # Input/Output paths are passed via env IN/OUT inside the packager container.
-    docker_cmd = [
-        "docker",
-        "run",
-        "--rm",
-        "--platform", "linux/amd64",
-        "-v", "media_data:/work",
-        "-e",
-        f"KID_HEX={video.kid_hex}",
-        "-e",
-        f"KEY_HEX={video.key_hex}",
-        "-e",
-        f"IN={input_path_in_packager}",
-        "-e",
-        f"OUT={out_dir_in_packager}",
-        "packager",
-        "sh",
-        "/work/pack.sh",
-    ]
+    # Call packager HTTP API instead of docker CLI
+    packager_url = os.getenv("PACKAGER_SERVICE_URL", "http://packager:8080").rstrip("/") + "/pack"
 
-    logger.info(f"Running docker command: {' '.join(docker_cmd)}")
-    
+    payload = {
+        "input_rel_path": input_rel_path,
+        "output_rel_dir": f"encrypted/{video.id}",
+        "kid_hex": video.kid_hex,
+        "key_hex": video.key_hex,
+    }
+
     try:
-        proc = subprocess.run(
-            docker_cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            check=False,
-        )
-        
-        logger.info(f"Docker command stdout: {proc.stdout}")
-        logger.info(f"Docker command stderr: {proc.stderr}")
-        logger.info(f"Docker command return code: {proc.returncode}")
-        
-        if proc.returncode != 0:
-            logger.error(f"Docker command failed with return code {proc.returncode}")
-            logger.error(f"Docker stderr: {proc.stderr}")
+        resp = requests.post(packager_url, json=payload, timeout=600)
+        if resp.status_code != 200:
+            logger.error(f"Packager API failed: {resp.status_code} {resp.text}")
             Video.objects.filter(pk=video.pk).update(status="failed")
             return
 
-        # Success: update status and path
-        encrypted_rel_path = f"encrypted/{video.id}/stream.mpd"
-        logger.info(f"Encryption successful, setting encrypted_path: {encrypted_rel_path}")
+        data = resp.json()
+        encrypted_rel_path = data.get("mpd", f"encrypted/{video.id}/stream.mpd")
+        logger.info(f"Encryption successful via API, setting encrypted_path: {encrypted_rel_path}")
         Video.objects.filter(pk=video.pk).update(
             status="READY",
             encrypted_path=encrypted_rel_path,
