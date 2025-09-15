@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
-IN="/work/input/input.mp4"; OUT="/work/out"
-KID_HEX="${KID_HEX:?}"; KEY_HEX="${KEY_HEX:?}"
+
+# Allow caller to override IN/OUT via env; fallback to defaults
+IN="${IN:-/work/input/input.mp4}"
+OUT="${OUT:-/work/out}"
+KID_HEX="${KID_HEX:?}"
+KEY_HEX="${KEY_HEX:?}"
 mkdir -p "$OUT"
 
 # 先試視訊+音訊

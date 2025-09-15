@@ -133,7 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # celery配置
-CELERY_BROKER_URL = "redis://:SeoIs888@127.0.0.1:6379/4"
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://:SeoIs888@127.0.0.1:6379/4")
 CELERY_TIMEZONE = 'Asia/Taipei'
 
 # Logging配置

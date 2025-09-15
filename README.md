@@ -77,6 +77,18 @@ mediainfo video.mp4 | grep "Codec ID"
 
 ### Docker 配置與腳本邏輯
 
+#### 一鍵啟動（docker compose）
+- 需求：安裝 Docker 與 Docker Compose。
+- 啟動：`docker compose up -d --build`
+- 啟動的服務：`django`(web)、`celery`(worker)、`redis`、`packager`（供打包用的鏡像與服務）
+
+本專案已調整為「隨開即用」：
+- Celery/Django 容器掛載 `/var/run/docker.sock`，容器內安裝了 docker CLI，能呼叫宿主 Docker 啟動一次性的打包容器。
+- 打包時以 `docker run --rm -v media_data:/work packager sh /work/pack.sh` 執行，與 Web 端共用同一個 named volume：`media_data`。
+- 媒體資料夾 volume 名稱固定為 `media_data`，確保 compose 與任務一致。
+
+可能的權限問題：若看到「permission denied on /var/run/docker.sock」，請將使用者加入 `docker` 群組或調整 docker.sock 權限。
+
 #### Dockerfile 結構
 ```dockerfile
 FROM google/shaka-packager:latest

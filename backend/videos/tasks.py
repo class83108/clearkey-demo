@@ -31,13 +31,15 @@ def encrypt_video(self, video_id: int):
         logger.error(f"Video with ID {video_id} does not exist")
         return
 
-    # Resolve paths
+    # Resolve paths relative to shared Docker volume 'media_data'
+    # In Django/Celery containers the volume is mounted at /app/media
+    # In the packager container the same volume is mounted at /work
+    input_rel_path = video.file.name  # e.g. 'uploads/<file>'
+    input_path_in_packager = f"/work/{input_rel_path}"
+    out_dir_in_packager = f"/work/encrypted/{video.id}"
+    # Also ensure the output dir exists in our container (harmless if not visible to packager)
     media_root = settings.MEDIA_ROOT
-    input_rel_path = video.file.name  # e.g. uploads/<file>
-    input_abs_path = os.path.join(media_root, input_rel_path)
-
-    out_dir = os.path.join(media_root, "encrypted", str(video.id))
-    os.makedirs(out_dir, exist_ok=True)
+    os.makedirs(os.path.join(media_root, "encrypted", str(video.id)), exist_ok=True)
 
     # Ensure 16-byte KID/KEY in hex (32 hex chars)
     updated_keys = False
@@ -51,23 +53,22 @@ def encrypt_video(self, video_id: int):
         video.save(update_fields=["kid_hex", "key_hex", "updated_at"])
 
     # Build docker run command
-    # -v <host_out>:/work/out
-    # -v <host_input_file>:/work/input/input.mp4:ro
-    # -e KID_HEX/KEY_HEX for pack.sh if supported
+    # We mount the named volume 'media_data' directly so paths are valid for the host docker daemon.
+    # Input/Output paths are passed via env IN/OUT inside the packager container.
     docker_cmd = [
         "docker",
         "run",
         "--rm",
-        "--platform",
-        "linux/amd64",
-        "-v",
-        f"{out_dir}:/work/out",
-        "-v",
-        f"{input_abs_path}:/work/input/input.mp4:ro",
+        "--platform", "linux/amd64",
+        "-v", "media_data:/work",
         "-e",
         f"KID_HEX={video.kid_hex}",
         "-e",
         f"KEY_HEX={video.key_hex}",
+        "-e",
+        f"IN={input_path_in_packager}",
+        "-e",
+        f"OUT={out_dir_in_packager}",
         "packager",
         "sh",
         "/work/pack.sh",
