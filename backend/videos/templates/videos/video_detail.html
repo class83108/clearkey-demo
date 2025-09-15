@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }} - Video Player</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.5/shaka-player.compiled.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .back-button:hover {
+            background: #5a6268;
+        }
+        .video-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        #video {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            background: black;
+        }
+        .video-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-button" onclick="window.location.href='{% url 'videos:video_list' %}'">
+            ← Back to Video Library
+        </button>
+    </div>
+
+    <div class="video-container">
+        <div class="video-title">{{ video.title }}</div>
+        
+        <video id="video" controls autoplay></video>
+        
+        <div id="error-display" class="error-message" style="display: none;"></div>
+        
+        <div class="video-info">
+            <p><strong>Created:</strong> {{ video.created_at|date:"Y-m-d H:i" }}</p>
+            <p><strong>Status:</strong> {{ video.status }}</p>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const errorDisplay = document.getElementById('error-display');
+        
+        function showError(message) {
+            errorDisplay.textContent = message;
+            errorDisplay.style.display = 'block';
+            console.error(message);
+        }
+
+        async function initPlayer() {
+            try {
+                // Check for browser support
+                if (!shaka.Player.isBrowserSupported()) {
+                    showError('Browser is not supported by Shaka Player.');
+                    return;
+                }
+
+                const player = new shaka.Player(video);
+                
+                // Fetch license data first
+                const licenseUrl = '{% url 'videos:license_api' video.id %}';
+                const licenseResponse = await fetch(licenseUrl);
+                const licenseData = await licenseResponse.json();
+                
+                // Build clearKeys object
+                const clearKeys = {};
+                licenseData.keys.forEach(key => {
+                    clearKeys[key.kid] = key.k;
+                });
+                
+                // Configure player with clearKeys
+                player.configure({
+                    drm: {
+                        clearKeys: clearKeys
+                    }
+                });
+
+                // Error handling
+                player.addEventListener('error', function(event) {
+                    const error = event.detail;
+                    showError(`Player error ${error.code}: ${error.message}`);
+                });
+
+                // Load the manifest
+                const manifestUrl = '/media/{{ video.encrypted_path }}';
+                console.log('Loading manifest:', manifestUrl);
+                console.log('Using clearKeys:', clearKeys);
+                
+                await player.load(manifestUrl);
+                
+                console.log('Video loaded successfully');
+
+            } catch (error) {
+                showError('Failed to load video: ' + error.message);
+                console.error('Full error:', error);
+            }
+        }
+
+        // Initialize player when page loads
+        document.addEventListener('DOMContentLoaded', initPlayer);
+    </script>
+</body>
+</html>

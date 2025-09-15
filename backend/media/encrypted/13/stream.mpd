@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Generated with https://github.com/shaka-project/shaka-packager version v3.4.2-c819dea-debug-->
+<MPD xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 DASH-MPD.xsd" xmlns:cenc="urn:mpeg:cenc:2013" profiles="urn:mpeg:dash:profile:isoff-live:2011" minBufferTime="PT2S" type="static" mediaPresentationDuration="PT5.041667S">
+  <Period id="0">
+    <AdaptationSet id="0" contentType="video" width="832" height="1120" frameRate="12288/512" segmentAlignment="true" par="14:19">
+      <ContentProtection value="cenc" schemeIdUri="urn:mpeg:dash:mp4protection:2011" cenc:default_KID="03a9c30c-9f57-2c93-9e2a-0c6b44c60059"/>
+      <ContentProtection schemeIdUri="urn:uuid:1077efec-c0b2-4d02-ace3-3c1e52e2fb4b">
+        <cenc:pssh>AAAANHBzc2gBAAAAEHfv7MCyTQKs4zweUuL7SwAAAAEDqcMMn1csk54qDGtExgBZAAAAAA==</cenc:pssh>
+      </ContentProtection>
+      <Representation id="0" bandwidth="3396054" codecs="avc1.42c020" mimeType="video/mp4" sar="1:1">
+        <SegmentTemplate timescale="12288" initialization="video_init.mp4" media="video_$Number$.m4s" startNumber="1">
+          <SegmentTimeline>
+            <S t="0" d="61952"/>
+          </SegmentTimeline>
+        </SegmentTemplate>
+      </Representation>
+    </AdaptationSet>
+  </Period>
+</MPD>

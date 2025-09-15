@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  django:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - media_data:/app/media
+      - ./backend:/app
+    environment:
+      - DEBUG=1
+      - CELERY_BROKER_URL=redis://redis:6379/4
+      - PACKAGER_SERVICE_URL=http://packager:8080
+    depends_on:
+      - redis
+      - packager
+    command: python manage.py runserver 0.0.0.0:8000
+
+  celery:
+    build: ./backend
+    volumes:
+      - media_data:/app/media
+      - ./backend:/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/4
+      - PACKAGER_SERVICE_URL=http://packager:8080
+    depends_on:
+      - redis
+      - packager
+    command: celery -A server worker --loglevel=info
+
+  packager:
+    build: ./packager
+    ports:
+      - "8080:8080"
+    volumes:
+      - media_data:/work
+    environment:
+      - PORT=8080
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  media_data:

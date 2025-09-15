@@ -1,0 +1,195 @@
+INFO 2025-09-01 08:48:31,382 tasks 91679 8567947840 Starting encrypt_video task for video_id: 8
+INFO 2025-09-01 08:48:31,416 tasks 91679 8567947840 Found video: 1231321312 (ID: 8)
+INFO 2025-09-01 08:48:31,422 tasks 91679 8567947840 Running docker command: docker run --rm -v /Users/nb050/clearkey-demo/backend/media/encrypted/8:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175645387405000000000000000000000ffffc0a8906080198a_N6KVwW3.mp4:/work/input/input.mp4:ro -e KID_HEX=b04868d0d784bc4b9f6854f9e77ceb9d -e KEY_HEX=abc74fb4db531121675eeb1877eaa299 packager /work/pack.sh
+INFO 2025-09-01 08:48:31,982 tasks 91679 8567947840 Docker command stdout: 
+INFO 2025-09-01 08:48:31,983 tasks 91679 8567947840 Docker command stderr: WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+env: can't execute 'bash': No such file or directory
+
+INFO 2025-09-01 08:48:31,983 tasks 91679 8567947840 Docker command return code: 127
+ERROR 2025-09-01 08:48:31,984 tasks 91679 8567947840 Docker command failed with return code 127
+ERROR 2025-09-01 08:48:31,984 tasks 91679 8567947840 Docker stderr: WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+env: can't execute 'bash': No such file or directory
+
+INFO 2025-09-01 08:49:39,845 tasks 92877 8567947840 Starting encrypt_video task for video_id: 9
+INFO 2025-09-01 08:49:39,885 tasks 92877 8567947840 Found video: 123123 (ID: 9)
+INFO 2025-09-01 08:49:39,889 tasks 92877 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/9:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175645387405000000000000000000000ffffc0a8906080198a_Oqf6GZK.mp4:/work/input/input.mp4:ro -e KID_HEX=7d7e52ceb1a796e14acaad49488a44f1 -e KEY_HEX=a2b0b69b4cb2c806e9720d457571a028 packager sh /work/pack.sh
+INFO 2025-09-01 08:49:40,579 tasks 92877 8567947840 Docker command stdout: 
+INFO 2025-09-01 08:49:40,580 tasks 92877 8567947840 Docker command stderr: E0901 08:49:40.473937       8 stream_descriptor.cc:281] Unknown field in stream descriptor ("label").
+
+INFO 2025-09-01 08:49:40,580 tasks 92877 8567947840 Docker command return code: 1
+ERROR 2025-09-01 08:49:40,581 tasks 92877 8567947840 Docker command failed with return code 1
+ERROR 2025-09-01 08:49:40,581 tasks 92877 8567947840 Docker stderr: E0901 08:49:40.473937       8 stream_descriptor.cc:281] Unknown field in stream descriptor ("label").
+
+INFO 2025-09-01 09:00:00,096 tasks 3142 8567947840 Starting encrypt_video task for video_id: 10
+INFO 2025-09-01 09:00:00,120 tasks 3142 8567947840 Found video: 123123 (ID: 10)
+INFO 2025-09-01 09:00:00,142 tasks 3142 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/10:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175645387405000000000000000000000ffffc0a8906080198a_GBvkUrS.mp4:/work/input/input.mp4:ro -e KID_HEX=ffca19086b341b2c0fe76c7aff8383d0 -e KEY_HEX=5a21131f4f80556e57e8535fa791803f packager sh /work/pack.sh
+INFO 2025-09-01 09:00:01,147 tasks 3142 8567947840 Docker command stdout: Shaka Packager version:
+packager version v3.4.2-c819dea-debug
+⚠️ drm_label 失敗，改用單一預設 key（無 drm_label，相容舊版）
+
+INFO 2025-09-01 09:00:01,148 tasks 3142 8567947840 Docker command stderr: I0901 09:00:00.818167      10 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 09:00:00.827763      10 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 09:00:00.918312      10 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 09:00:00.922833       9 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 09:00:01.015179      13 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 09:00:01.024584      13 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 09:00:01.067466      13 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 09:00:01.068853      12 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+
+INFO 2025-09-01 09:00:01,148 tasks 3142 8567947840 Docker command return code: 2
+ERROR 2025-09-01 09:00:01,149 tasks 3142 8567947840 Docker command failed with return code 2
+ERROR 2025-09-01 09:00:01,149 tasks 3142 8567947840 Docker stderr: I0901 09:00:00.818167      10 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 09:00:00.827763      10 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 09:00:00.918312      10 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 09:00:00.922833       9 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 09:00:01.015179      13 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 09:00:01.024584      13 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 09:00:01.067466      13 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 09:00:01.068853      12 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+
+INFO 2025-09-01 09:06:11,774 tasks 9096 8567947840 Starting encrypt_video task for video_id: 11
+INFO 2025-09-01 09:06:11,841 tasks 9096 8567947840 Found video: wew (ID: 11)
+INFO 2025-09-01 09:06:11,865 tasks 9096 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/11:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175645387405000000000000000000000ffffc0a8906080198a_cCgyOBc.mp4:/work/input/input.mp4:ro -e KID_HEX=59ee4d05578c559345d57b58e7799b8f -e KEY_HEX=2b40e0a953af2b551a8725a9e25d8676 packager sh /work/pack.sh
+INFO 2025-09-01 09:06:13,129 tasks 9096 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-01 09:06:13,129 tasks 9096 8567947840 Docker command stderr: I0901 09:06:12.609246       9 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 09:06:12.620503       9 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 09:06:12.684939       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 09:06:12.687428       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 09:06:12.768746      12 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 09:06:12.773964      12 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0901 09:06:13.014690      12 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-01 09:06:13,130 tasks 9096 8567947840 Docker command return code: 0
+INFO 2025-09-01 09:06:13,130 tasks 9096 8567947840 Encryption successful, setting encrypted_path: encrypted/11/stream.mpd
+INFO 2025-09-01 10:05:21,749 tasks 9096 8567947840 Starting encrypt_video task for video_id: 12
+INFO 2025-09-01 10:05:21,790 tasks 9096 8567947840 Found video: 測試2 (ID: 12)
+INFO 2025-09-01 10:05:21,795 tasks 9096 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/12:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175611480082400000000000000000000ffffc0a84077578c1c.mp4:/work/input/input.mp4:ro -e KID_HEX=793220312beed8e1e632d8d883ebdf24 -e KEY_HEX=e2d3b6842490ec6d6ec98cdc0f3e9102 packager sh /work/pack.sh
+INFO 2025-09-01 10:05:22,985 tasks 9096 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-01 10:05:22,986 tasks 9096 8567947840 Docker command stderr: I0901 10:05:22.498306       8 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:05:22.504789       8 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 10:05:22.562145       8 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 10:05:22.564218       7 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 10:05:22.659035      11 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:05:22.664250      11 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0901 10:05:22.874249      11 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-01 10:05:22,986 tasks 9096 8567947840 Docker command return code: 0
+INFO 2025-09-01 10:05:22,986 tasks 9096 8567947840 Encryption successful, setting encrypted_path: encrypted/12/stream.mpd
+INFO 2025-09-01 10:05:36,986 tasks 9096 8567947840 Starting encrypt_video task for video_id: 13
+INFO 2025-09-01 10:05:36,995 tasks 9096 8567947840 Found video: 測試3 (ID: 13)
+INFO 2025-09-01 10:05:36,999 tasks 9096 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/13:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175610591147200000000000000000000ffffc0a84077654f27.mp4:/work/input/input.mp4:ro -e KID_HEX=03a9c30c9f572c939e2a0c6b44c60059 -e KEY_HEX=8176a2d0d613d0bda9c0823b75826304 packager sh /work/pack.sh
+INFO 2025-09-01 10:05:38,068 tasks 9096 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-01 10:05:38,070 tasks 9096 8567947840 Docker command stderr: I0901 10:05:37.566763       9 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:05:37.576100       9 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 10:05:37.627551       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 10:05:37.629305       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 10:05:37.731361      12 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:05:37.741099      12 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0901 10:05:37.934245      12 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-01 10:05:38,071 tasks 9096 8567947840 Docker command return code: 0
+INFO 2025-09-01 10:05:38,072 tasks 9096 8567947840 Encryption successful, setting encrypted_path: encrypted/13/stream.mpd
+INFO 2025-09-01 10:12:54,927 tasks 9096 8567947840 Starting encrypt_video task for video_id: 14
+INFO 2025-09-01 10:12:54,937 tasks 9096 8567947840 Found video: 測試webm (ID: 14)
+INFO 2025-09-01 10:12:54,945 tasks 9096 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/14:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/output_av1_2.webm:/work/input/input.mp4:ro -e KID_HEX=6a30a9ee094a70a641b563083725fcda -e KEY_HEX=d0ba7534afbe2091b4566e8a3c5c78cc packager sh /work/pack.sh
+INFO 2025-09-01 10:12:56,099 tasks 9096 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-01 10:12:56,100 tasks 9096 8567947840 Docker command stderr: I0901 10:12:55.681764       9 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:12:55.691341       9 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0901 10:12:55.721342       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 10:12:55.722934       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 10:12:55.802559      12 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:12:55.814285      12 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0901 10:12:55.955441      12 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-01 10:12:56,100 tasks 9096 8567947840 Docker command return code: 0
+INFO 2025-09-01 10:12:56,100 tasks 9096 8567947840 Encryption successful, setting encrypted_path: encrypted/14/stream.mpd
+INFO 2025-09-01 10:15:02,470 tasks 9096 8567947840 Starting encrypt_video task for video_id: 15
+INFO 2025-09-01 10:15:02,476 tasks 9096 8567947840 Found video: 測試webm2 (ID: 15)
+INFO 2025-09-01 10:15:02,481 tasks 9096 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/15:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/output_vp9_2.webm:/work/input/input.mp4:ro -e KID_HEX=12d6bb30150893d97a406ed9c58f31b6 -e KEY_HEX=c2876b2a897e79e2167ce0cf97867dad packager sh /work/pack.sh
+INFO 2025-09-01 10:15:03,565 tasks 9096 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-01 10:15:03,566 tasks 9096 8567947840 Docker command stderr: I0901 10:15:03.064582       8 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:15:03.072390       8 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+W0901 10:15:03.104846       8 vp_codec_configuration_record.cc:46] VPx video full range flag is inconsistent, 1 vs 0
+E0901 10:15:03.247904       8 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0901 10:15:03.249772       7 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0901 10:15:03.317984      11 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0901 10:15:03.325346      11 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+W0901 10:15:03.341563      11 vp_codec_configuration_record.cc:46] VPx video full range flag is inconsistent, 1 vs 0
+I0901 10:15:03.461920      11 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-01 10:15:03,566 tasks 9096 8567947840 Docker command return code: 0
+INFO 2025-09-01 10:15:03,566 tasks 9096 8567947840 Encryption successful, setting encrypted_path: encrypted/15/stream.mpd
+INFO 2025-09-02 06:04:52,606 tasks 91532 8567947840 Starting encrypt_video task for video_id: 16
+INFO 2025-09-02 06:04:52,637 tasks 91532 8567947840 Found video: 123 (ID: 16)
+INFO 2025-09-02 06:04:52,642 tasks 91532 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/16:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175645387405000000000000000000000ffffc0a8906080198a_MeSKD7C.mp4:/work/input/input.mp4:ro -e KID_HEX=481be88f5d31e8f56de14fda7ba484ed -e KEY_HEX=7efb350aef722000a664e31b737a045e packager sh /work/pack.sh
+INFO 2025-09-02 06:04:54,329 tasks 91532 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-02 06:04:54,329 tasks 91532 8567947840 Docker command stderr: I0902 06:04:53.580134       9 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0902 06:04:53.586346       9 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0902 06:04:53.708949       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0902 06:04:53.714239       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0902 06:04:53.810268      12 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0902 06:04:53.816599      12 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0902 06:04:54.166424      12 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-02 06:04:54,330 tasks 91532 8567947840 Docker command return code: 0
+INFO 2025-09-02 06:04:54,331 tasks 91532 8567947840 Encryption successful, setting encrypted_path: encrypted/16/stream.mpd
+INFO 2025-09-02 06:11:23,713 tasks 91532 8567947840 Starting encrypt_video task for video_id: 17
+INFO 2025-09-02 06:11:23,730 tasks 91532 8567947840 Found video: 232r23r23r (ID: 17)
+INFO 2025-09-02 06:11:23,735 tasks 91532 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/17:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/output_av1_2_hlHg0xO.webm:/work/input/input.mp4:ro -e KID_HEX=29ab7c3e97a0f1560d64258b10d69ba2 -e KEY_HEX=ec4ceb61d0e702e4d0cc6f5ff7da8819 packager sh /work/pack.sh
+INFO 2025-09-02 06:11:25,244 tasks 91532 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-02 06:11:25,245 tasks 91532 8567947840 Docker command stderr: I0902 06:11:24.808650       9 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0902 06:11:24.816871       9 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0902 06:11:24.873494       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0902 06:11:24.879373       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0902 06:11:24.960997      12 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0902 06:11:24.969103      12 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0902 06:11:25.126400      12 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-02 06:11:25,245 tasks 91532 8567947840 Docker command return code: 0
+INFO 2025-09-02 06:11:25,245 tasks 91532 8567947840 Encryption successful, setting encrypted_path: encrypted/17/stream.mpd
+INFO 2025-09-15 04:23:51,193 tasks 57624 8567947840 Starting encrypt_video task for video_id: 18
+INFO 2025-09-15 04:23:51,220 tasks 57624 8567947840 Found video: test1231231 (ID: 18)
+INFO 2025-09-15 04:23:51,222 tasks 57624 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/18:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175645387405000000000000000000000ffffc0a8906080198a_7SyO2Fp.mp4:/work/input/input.mp4:ro -e KID_HEX=5c7b82573350fbe8b41d0c78eb8427de -e KEY_HEX=67f2ed9deef4b07649eb1e2473b47556 packager sh /work/pack.sh
+INFO 2025-09-15 04:23:52,969 tasks 57624 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-15 04:23:52,970 tasks 57624 8567947840 Docker command stderr: I0915 04:23:52.324114       9 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0915 04:23:52.333553       9 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0915 04:23:52.439818       9 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0915 04:23:52.441897       8 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0915 04:23:52.509420      12 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0915 04:23:52.514482      12 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0915 04:23:52.855076      12 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-15 04:23:52,970 tasks 57624 8567947840 Docker command return code: 0
+INFO 2025-09-15 04:23:52,971 tasks 57624 8567947840 Encryption successful, setting encrypted_path: encrypted/18/stream.mpd
+INFO 2025-09-15 04:35:20,073 tasks 57624 8567947840 Starting encrypt_video task for video_id: 19
+INFO 2025-09-15 04:35:20,082 tasks 57624 8567947840 Found video: test2 (ID: 19)
+INFO 2025-09-15 04:35:20,084 tasks 57624 8567947840 Running docker command: docker run --rm --platform linux/amd64 -v /Users/nb050/clearkey-demo/backend/media/encrypted/19:/work/out -v /Users/nb050/clearkey-demo/backend/media/uploads/02175611480082400000000000000000000ffffc0a84077578c1c_fiuudmh.mp4:/work/input/input.mp4:ro -e KID_HEX=c47c7999119028c64de239a12aed7777 -e KEY_HEX=417ed703addb9c2d812049cfeb2eddcd packager sh /work/pack.sh
+INFO 2025-09-15 04:35:21,407 tasks 57624 8567947840 Docker command stdout: Packaging completed successfully.
+OK -> /work/out/stream.mpd
+
+INFO 2025-09-15 04:35:21,408 tasks 57624 8567947840 Docker command stderr: I0915 04:35:20.797549       8 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0915 04:35:20.809363       8 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+E0915 04:35:20.884064       8 demuxer.cc:112] Invalid argument, stream=audio not available.
+E0915 04:35:20.888027       7 packager_main.cc:629] Packaging Error: 3 (INVALID_ARGUMENT): Stream not available
+I0915 04:35:20.965576      11 demuxer.cc:94] Demuxer::Run() on file '/work/input/input.mp4'.
+I0915 04:35:20.970768      11 demuxer.cc:160] Initialize Demuxer for file '/work/input/input.mp4'.
+I0915 04:35:21.282341      11 mp4_muxer.cc:195] MP4 file '/work/out/video_init.mp4' finalized.
+
+INFO 2025-09-15 04:35:21,408 tasks 57624 8567947840 Docker command return code: 0
+INFO 2025-09-15 04:35:21,408 tasks 57624 8567947840 Encryption successful, setting encrypted_path: encrypted/19/stream.mpd
